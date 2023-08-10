@@ -3,3 +3,6 @@
 *.exe
 *.pdb
 .vscode/settings.json
+
+.direnv
+result*
