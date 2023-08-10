@@ -98,15 +98,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1686623191,
-        "narHash": "sha256-x2gQcKtSgfbZlcTaVvdMPbrXMRjUEYIV88yzsFww6D4=",
-        "owner": "oxalica",
+        "lastModified": 1691691040,
+        "narHash": "sha256-7nt/HqUrbNXP9BzveNSzZG7Tw3k0Ik2WOMD6CX5qlOI=",
+        "owner": "zhaofengli",
         "repo": "rust-overlay",
-        "rev": "e279547de84413ca1a65cec3f0f879709c8c65eb",
+        "rev": "46dff9c200a4cf65447637ca0c6ee62826429924",
         "type": "github"
       },
       "original": {
-        "owner": "oxalica",
+        "owner": "zhaofengli",
+        "ref": "fix-sysroot-with-rustc-dev",
         "repo": "rust-overlay",
         "type": "github"
       }
