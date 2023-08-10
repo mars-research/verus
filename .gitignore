@@ -2,3 +2,6 @@
 *.swp
 *.exe
 *.pdb
+
+.direnv
+result*
