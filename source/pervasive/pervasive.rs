@@ -3,7 +3,7 @@ use builtin::*;
 #[allow(unused_imports)]
 use builtin_macros::*;
 
-#[cfg(feature = "non_std")]
+#[cfg(not(feature = "std"))]
 macro_rules! println {
     ($($arg:tt)*) => {
     };
