@@ -36,7 +36,6 @@ pub mod function;
 pub mod state_machine_internal;
 #[cfg(feature = "std")]
 pub mod thread;
-#[cfg(feature = "alloc")]
 pub mod ptr;
 #[cfg(feature = "alloc")]
 pub mod string;

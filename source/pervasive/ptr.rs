@@ -1,6 +1,8 @@
 #![allow(unused_imports)]
 
 use core::{marker, mem, mem::MaybeUninit};
+
+#[cfg(feature = "alloc")]
 extern crate alloc;
 
 use builtin::*;
@@ -228,6 +230,7 @@ impl<V> PPtr<V> {
 
     /// Allocates heap memory for type `V`, leaving it uninitialized.
 
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     #[verifier(external_body)]
     pub fn empty() -> (pt: (PPtr<V>, Tracked<PointsTo<V>>))
@@ -352,6 +355,7 @@ impl<V> PPtr<V> {
     /// This consumes `perm`, since it will no longer be safe to access
     /// that memory location.
 
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     #[verifier(external_body)]
     pub fn dispose(&self, Tracked(perm): Tracked<PointsTo<V>>)
@@ -374,6 +378,7 @@ impl<V> PPtr<V> {
     /// This consumes the [`PointsTo`] token, since the user is giving up
     /// access to the memory by freeing it.
 
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     pub fn into_inner(self, Tracked(perm): Tracked<PointsTo<V>>) -> (v: V)
         requires
@@ -392,6 +397,7 @@ impl<V> PPtr<V> {
     /// Allocates heap memory for type `V`, leaving it initialized
     /// with the given value `v`.
 
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     pub fn new(v: V) -> (pt: (PPtr<V>, Tracked<PointsTo<V>>))
         ensures
