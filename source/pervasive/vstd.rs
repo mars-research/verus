@@ -3,7 +3,7 @@
 //! as well as runtime functionality with specifications.
 //! For an introduction to Verus, see [the tutorial](https://verus-lang.github.io/verus/guide/).
 
-#![cfg_attr(feature = "non_std", no_std)]
+#![cfg_attr(verus_vstd_no_std, no_std)]
 #![allow(unused_parens)]
 #![allow(rustdoc::invalid_rust_codeblocks)]
 
@@ -29,13 +29,13 @@ pub mod modes;
 pub mod multiset;
 pub mod function;
 pub mod state_machine_internal;
-#[cfg(not(feature = "non_std"))]
+#[cfg(not(verus_vstd_no_std))]
 pub mod thread;
-#[cfg(not(feature = "no_global_allocator"))] 
+#[cfg(not(verus_vstd_no_alloc))]
 pub mod ptr;
-#[cfg(not(feature = "no_global_allocator"))] 
+#[cfg(not(verus_vstd_no_alloc))]
 pub mod string;
-#[cfg(not(feature = "no_global_allocator"))] 
+#[cfg(not(verus_vstd_no_alloc))]
 pub mod vec;
 pub mod view;
 pub mod std_specs;

@@ -3,5 +3,5 @@ pub mod num;
 pub mod result;
 pub mod option;
 
-#[cfg(not(feature = "no_global_allocator"))] 
+#[cfg(not(verus_vstd_no_alloc))] 
 pub mod vec;

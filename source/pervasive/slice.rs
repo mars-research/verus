@@ -4,6 +4,7 @@ use builtin_macros::*;
 use crate::view::*;
 use crate::seq::*;
 
+#[cfg(not(verus_vstd_no_alloc))]
 pub use super::std_specs::vec::VecAdditionalSpecFns;
 
 verus!{
@@ -30,7 +31,7 @@ pub exec fn slice_index_get<T>(slice: &[T], i: usize) -> (out: &T)
     &slice[i]
 }
 
-#[cfg(not(feature = "no_global_allocator"))] 
+#[cfg(not(verus_vstd_no_alloc))] 
 #[verifier(external_body)]
 pub exec fn slice_to_vec<T: Copy>(slice: &[T]) -> (out: Vec<T>)
     ensures out@ == slice@

@@ -119,7 +119,7 @@ pub exec fn u64_from_le_bytes(s: &[u8]) -> (x:u64)
 }
 
 
-#[cfg(not(feature = "no_global_allocator"))]
+#[cfg(not(verus_vstd_no_alloc))]
 #[verifier(external_body)]
 pub exec fn u64_to_le_bytes(x: u64) -> (s: Vec<u8>)
   ensures 
