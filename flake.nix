@@ -45,7 +45,7 @@
     };
   in {
     packages = {
-      inherit (cranePkgs) vargo verus;
+      inherit (cranePkgs) vargo verus verus-no-std;
     };
     devShell = pkgs.mkShell {
       nativeBuildInputs = with pkgs; [
