@@ -12,6 +12,8 @@ use crate::pervasive::*;
 use crate::modes::*;
 use crate::prelude::*;
 
+pub const PAGE_SIZE: usize = 4096;
+
 verus!{
 
 /// `PPtr<V>` (which stands for "permissioned pointer")
@@ -166,6 +168,15 @@ pub ghost struct PointsToData<V> {
 
     pub value: Option<V>,
 }
+
+/// A pointer to a 4KiB page created by the bootloader.
+///
+/// All BootPages are guaranteed by the bootloader to be unique and aligned.
+/// There is no way to safely construct this.
+
+#[repr(transparent)]
+#[verifier(external_body)]
+pub struct BootPage(*mut u8);
 
 impl<V> PointsTo<V> {
     pub spec fn view(self) -> PointsToData<V>;
@@ -406,6 +417,26 @@ impl<V> PPtr<V> {
         let (p, Tracked(mut t)) = Self::empty();
         p.put(Tracked(&mut t), v);
         (p, Tracked(t))
+    }
+}
+
+impl PPtr<[u8; PAGE_SIZE]> {
+    /// Converts a boot page to a permissioned pointer.
+
+    #[inline(always)]
+    #[verifier(external_body)]
+    pub fn from_boot_page(page: BootPage) -> (pt: (PPtr<[u8; PAGE_SIZE]>, Tracked<PointsTo<[u8; PAGE_SIZE]>>))
+        ensures pt.1@@ === (PointsToData{ pptr: pt.0.id(), value: Option::None }),
+        opens_invariants none
+    {
+        let p = PPtr {
+            uptr: page.0 as *mut MaybeUninit<[u8; PAGE_SIZE]>,
+        };
+
+        // See explanation about exposing pointers, above
+        let _exposed_addr = p.uptr as usize;
+
+        (p, Tracked::assume_new())
     }
 }
 
