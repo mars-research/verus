@@ -31,7 +31,6 @@ pub mod function;
 pub mod state_machine_internal;
 #[cfg(not(verus_vstd_no_std))]
 pub mod thread;
-#[cfg(not(verus_vstd_no_alloc))]
 pub mod ptr;
 #[cfg(not(verus_vstd_no_alloc))]
 pub mod string;
