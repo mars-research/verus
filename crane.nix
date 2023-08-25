@@ -34,7 +34,7 @@ let
     cargoArtifacts = craneLib.buildDepsOnly vargoArgs;
   });
 
-  verus = craneLib.buildPackage {
+  buildVerus = vargoArgs: craneLib.buildPackage {
     pname = "verus";
     inherit version src;
 
@@ -59,7 +59,7 @@ let
 
     # vargo doesn't compose well with the way crane does the deps-only build
     cargoArtifacts = null;
-    buildPhaseCargoCommand = "vargo build --release";
+    buildPhaseCargoCommand = "vargo build ${vargoArgs}";
     doCheck = false;
 
     # The toolchain is pinned using Rust
@@ -104,7 +104,10 @@ let
     dontStrip = true;
     dontPatchELF = true;
   };
+
+  verus = buildVerus "--release";
+  verus-no-std = buildVerus "--release --vstd-no-std";
 in
 {
-  inherit src vargo verus;
+  inherit src vargo verus verus-no-std;
 }
