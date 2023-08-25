@@ -3,6 +3,7 @@
 //! as well as runtime functionality with specifications.
 //! For an introduction to Verus, see [the tutorial](https://verus-lang.github.io/verus/guide/).
 
+#![cfg_attr(feature = "non_std", no_std)]
 #![allow(unused_parens)]
 #![allow(unused_imports)]
 #![allow(dead_code)]

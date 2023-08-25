@@ -9,6 +9,7 @@ pub use super::set::set;
 pub use super::map::Map;
 pub use super::map::map;
 
+#[cfg(not(feature = "no_global_allocator"))]
 pub use super::string::{String, StrSlice};
 
 #[cfg(verus_keep_ghost)]
