@@ -12,9 +12,9 @@ use crate::pervasive::*;
 use crate::modes::*;
 use crate::prelude::*;
 
-pub const PAGE_SIZE: usize = 4096;
-
 verus!{
+
+pub const PAGE_SIZE: usize = 4096;
 
 /// `PPtr<V>` (which stands for "permissioned pointer")
 /// is a wrapper around a raw pointer to `V` on the heap.
