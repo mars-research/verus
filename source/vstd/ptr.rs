@@ -5,6 +5,7 @@
 #![allow(unused_imports)]
 #![allow(deprecated)]
 
+#[cfg(feature = "alloc")]
 use alloc::alloc::Layout;
 use core::{marker, mem, mem::MaybeUninit};
 
@@ -522,6 +523,7 @@ impl<V> PPtr<V> {
     }
 
     /// Allocates heap memory for type `V`, leaving it uninitialized.
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     #[verifier::external_body]
     pub fn empty() -> (pt: (PPtr<V>, Tracked<PointsTo<V>>, Tracked<Dealloc<V>>))
@@ -537,6 +539,7 @@ impl<V> PPtr<V> {
         (p, Tracked::assume_new(), Tracked::assume_new())
     }
 
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     #[verifier::external_body]
     pub fn alloc(size: usize, align: usize) -> (pt: (
@@ -660,6 +663,7 @@ impl<V> PPtr<V> {
     ///
     /// This consumes `perm`, since it will no longer be safe to access
     /// that memory location.
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     #[verifier::external_body]
     pub fn dispose(
@@ -683,6 +687,7 @@ impl<V> PPtr<V> {
         }
     }
 
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     #[verifier::external_body]
     pub fn dealloc(
@@ -715,6 +720,7 @@ impl<V> PPtr<V> {
     /// Requires the memory to be initialized.
     /// This consumes the [`PointsTo`] token, since the user is giving up
     /// access to the memory by freeing it.
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     pub fn into_inner(
         self,
@@ -737,6 +743,7 @@ impl<V> PPtr<V> {
 
     /// Allocates heap memory for type `V`, leaving it initialized
     /// with the given value `v`.
+    #[cfg(feature = "alloc")]
     #[inline(always)]
     pub fn new(v: V) -> (pt: (PPtr<V>, Tracked<PointsTo<V>>, Tracked<Dealloc<V>>))
         ensures
